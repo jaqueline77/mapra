@@ -15,8 +15,6 @@ using namespace std;
 
 // ===== Hauptprogramm =====
 
-const double epsilon = 0.05;
-
 bool isComplexCalculateR(double p, double q, double &r) {
 	bool result = false;
 	
