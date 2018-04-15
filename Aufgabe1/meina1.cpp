@@ -63,17 +63,11 @@ int main()
 			// p-q-Form bestimmen
 			double p = b/a, q = c/a, r = 0;
 			
-			bool x2first = true;
-			if (p < 0) { //p<0, also explizite Berechnung von x1
-				x2first = false;
-			}
-				
 			//Berechne r und sage, ob komplex
 			if (isComplexCalculateR(p, q, r)) {
 				Ergebnis(2, true, -(p/2), r);
 			} else {
-				double y;
-				x2first ? y = -(p/2) - r : y = -(p/2) + r;
+				double y = -(p/2) - (abs(p)/p) * r;
 				if (y == 0) Ergebnis(1, false, y);
 				else {
 					double x = q/y;
