@@ -85,17 +85,14 @@ void partition(unsigned int * &feld, size_t &start, size_t &end, size_t laenge, 
 			end -= 1;
 		}
 		tausche(feld, start, end);
-		start < originEnd ? start += 1 : start = originEnd;
-		end > originStart ? end -= 1 : end = originStart;
 
 		std::cout << start << " " << end << "    ";
 		printArray(feld, laenge);
 	}
-	if ((start > originStart) && (start < originEnd) && (feld[start-1] < pivot)) {
-		end = start - 1;
-		start = start + 1;
-	}
-	tausche(feld, start-1, pivotIndex);
+	tausche(feld, start, pivotIndex);
+
+	if (start < originEnd) start++;
+	if (end > originStart) end--;
 
 	std::cout << start << " " << end << "        ";
 	printArray(feld, laenge);
@@ -118,11 +115,6 @@ void quickSort(unsigned int * &feld, size_t laenge, bool einfach = true) {
 }
 
 void mergeSortRecursive(unsigned int * &feld, size_t laenge) {
-	unsigned int * left [laenge/2], right [laenge - (laenge/2)];
-	std::copy(feld, feld+(laenge/2)-1, left);
-	std::copy(feld+(laenge/2), feld+(laenge-1), right);
-
-	printArray(feld, laenge);
 }
 
 void mergeSort(unsigned int * &feld, size_t laenge) {
@@ -135,8 +127,8 @@ int main() {
 
 	for (int i = 1; i <= AnzahlBeispiele; i++) {
 		start(i, laenge, feld);
-		//quickSort(feld, laenge, true);
-		mergeSort(feld, laenge);
+		quickSort(feld, laenge, false);
+		//mergeSort(feld, laenge);
 		ergebnis(feld);
 	}
 
