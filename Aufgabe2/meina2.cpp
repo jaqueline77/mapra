@@ -9,6 +9,7 @@
 #include "unit.h"
 #include <iostream>
 #include <algorithm>
+#include <climits>
 
 void printArray(unsigned int * feld, size_t echteLaenge) {
 	for (int i = 0; i < echteLaenge; i++) {
@@ -75,8 +76,6 @@ void partition(unsigned int * &feld, size_t &start, size_t &end, size_t laenge, 
 		pivotIndex = end;
 	}
 
-	printArray(feld, laenge);
-
 	while (start < end) {
 		while ((feld[start] < pivot) && (start < end)) {
 			start += 1;
@@ -85,17 +84,11 @@ void partition(unsigned int * &feld, size_t &start, size_t &end, size_t laenge, 
 			end -= 1;
 		}
 		tausche(feld, start, end);
-
-		std::cout << start << " " << end << "    ";
-		printArray(feld, laenge);
 	}
 	tausche(feld, start, pivotIndex);
 
 	if (start < originEnd) start++;
 	if (end > originStart) end--;
-
-	std::cout << start << " " << end << "        ";
-	printArray(feld, laenge);
 }
 
 void quickSortRecursive(unsigned int * &feld, size_t start, size_t end, size_t laenge, bool einfach = true) {
@@ -114,11 +107,59 @@ void quickSort(unsigned int * &feld, size_t laenge, bool einfach = true) {
 	quickSortRecursive(feld, start, end, laenge, einfach);
 }
 
-void mergeSortRecursive(unsigned int * &feld, size_t laenge) {
+void splitArray(unsigned int *feld, unsigned int * &left, unsigned int * &right, size_t laenge, size_t &laengeLeft, size_t &laengeRight) {
+	laengeLeft = laenge/2, laengeRight = laenge - laengeLeft;
+	left = new unsigned int [laengeLeft];
+	right = new unsigned int [laengeRight];
+
+	for (int i = 0; i < laengeLeft; i++) {
+		left[i] = feld[i];
+	}
+	for (int i = 0; i < laengeRight; i++) {
+		right[i] = feld[i + laengeLeft];
+	}
+}
+
+void mergeArray(unsigned int * &feld, unsigned int * left, unsigned int *  right, size_t laenge, size_t laengeLeft, size_t laengeRight) {
+	size_t iLeft = 0, iRight = 0;
+
+	for (int i = 0; i < laenge; i++) {
+		unsigned int vLeft, vRight;
+		if (iLeft < laengeLeft) {
+			vLeft = left[iLeft];
+		} else {
+			vLeft = UINT_MAX;
+		}
+
+		if (iRight < laengeRight) {
+			vRight = right[iRight];
+		} else {
+			vRight = UINT_MAX;
+		}
+
+		if (vRight < vLeft) {
+			feld[i] = vRight;
+			iRight++;
+		} else {
+			feld[i] = vLeft;
+			iLeft++;
+		}
+	}
 }
 
 void mergeSort(unsigned int * &feld, size_t laenge) {
-	mergeSortRecursive(feld, laenge);
+	if (laenge > 1) {
+		unsigned int * left, * right;
+		size_t laengeLeft = 0, laengeRight = 0;
+
+		splitArray(feld, left, right, laenge, laengeLeft, laengeRight);
+		mergeSort(left, laengeLeft);
+		mergeSort(right, laengeRight);
+
+		mergeArray(feld, left, right, laenge, laengeLeft, laengeRight);
+
+		delete left, right;
+	}
 }
 
 int main() {
@@ -127,8 +168,7 @@ int main() {
 
 	for (int i = 1; i <= AnzahlBeispiele; i++) {
 		start(i, laenge, feld);
-		quickSort(feld, laenge, false);
-		//mergeSort(feld, laenge);
+		mergeSort(feld, laenge);
 		ergebnis(feld);
 	}
 
