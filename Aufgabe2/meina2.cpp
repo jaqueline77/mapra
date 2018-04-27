@@ -164,9 +164,39 @@ void mergeSort(unsigned int * &feld, size_t laenge) {
 
 int main() {
 	unsigned int * feld;
-	size_t laenge = 10;
+	size_t laenge;
 
+	std::cout << "HEAP SORT" << std::endl;
 	for (int i = 1; i <= AnzahlBeispiele; i++) {
+		laenge = 10000;
+
+		start(i, laenge, feld);
+		heapSort(feld, laenge);
+		ergebnis(feld);
+	}
+
+	std::cout << std::endl << std::endl << "QUICK SORT" << std::endl;
+	for (int i = 1; i <= AnzahlBeispiele; i++) {
+		laenge = 10000;
+
+		start(i, laenge, feld);
+		quickSort(feld, laenge);
+		ergebnis(feld);
+	}
+
+	std::cout << std::endl << std::endl << "QUICK SORT MEDIAN OF THREE" << std::endl;
+	for (int i = 1; i <= AnzahlBeispiele; i++) {
+		laenge = 10000;
+
+		start(i, laenge, feld);
+		quickSort(feld, laenge, false);
+		ergebnis(feld);
+	}
+
+	std::cout << std::endl << std::endl << "MERGE SORT" << std::endl;
+	for (int i = 1; i <= AnzahlBeispiele; i++) {
+		laenge = 10000;
+
 		start(i, laenge, feld);
 		mergeSort(feld, laenge);
 		ergebnis(feld);
