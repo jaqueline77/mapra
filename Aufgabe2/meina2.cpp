@@ -11,6 +11,38 @@
 #include <algorithm>
 #include <climits>
 
+void bubbleSort(unsigned int * &feld, size_t laenge) {
+	for(int i=0; i<laenge; i++) {
+		for(int j=laenge-1; j>i; j--) {
+			if(feld[j-1]>feld[j]) {
+				tausche(feld, j-1, j);
+			}
+		}	
+	}
+}
+
+void selectionSort(unsigned int * &feld, size_t laenge) {
+	for(int i=1; i<laenge; i++) {
+		for(int j=i; j>=1; j--) {		
+			if(feld[j]<feld[j-1]) {
+				tausche(feld, j, j-1);
+			}
+		}
+	}
+}
+
+void insertionSort(unsigned int * &feld, size_t laenge) {
+	for(int i=0; i<laenge; i++) {
+		int r= i;
+		for(int j=i; j<laenge-1; j++) {
+			if (feld[j+1]<feld[r]) {
+				r=j+1;
+			}
+		}
+		tausche(feld, i, r);
+	}
+}
+
 void printArray(unsigned int * feld, size_t echteLaenge) {
 	for (int i = 0; i < echteLaenge; i++) {
 		std::cout << feld[i] << " ";
@@ -166,6 +198,32 @@ int main() {
 	unsigned int * feld;
 	size_t laenge;
 
+	std::cout << "BUBBLE SORT" << std::endl;
+	for (int i = 1; i <= AnzahlBeispiele; i++) {
+		laenge = 10000;
+
+		start(i, laenge, feld);
+		bubbleSort(feld, laenge);
+		ergebnis(feld);
+	}
+
+	std::cout << std::endl << std::endl << "SELECTION SORT" << std::endl;
+	for (int i = 1; i <= AnzahlBeispiele; i++) {
+		laenge = 10000;
+
+		start(i, laenge, feld);
+		selectionSort(feld, laenge);
+		ergebnis(feld);
+	}
+
+	std::cout << std::endl << std::endl << "INSERTION SORT" << std::endl;
+	for (int i = 1; i <= AnzahlBeispiele; i++) {
+		laenge = 10000;
+
+		start(i, laenge, feld);
+		insertionSort(feld, laenge);
+		ergebnis(feld);
+	}
 	std::cout << "HEAP SORT" << std::endl;
 	for (int i = 1; i <= AnzahlBeispiele; i++) {
 		laenge = 10000;
