@@ -31,7 +31,7 @@ int main() {
 
 	size_t laenge = 2;
 
-	mergeSort(feld, laenge);
+	selectionSort(feld, laenge);
 
 	for (int i = 0; i < 2; i++) {
 		std::cout << feld[i];
