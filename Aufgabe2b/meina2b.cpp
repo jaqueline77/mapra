@@ -10,6 +10,7 @@
 #include "sort.h"
 #include <iostream>
 #include <fstream>
+#include "unit.h"
 
 using std::vector;
 using std::string;
@@ -49,11 +50,34 @@ int main() {
 	einlesen(ifs, doubles);
 	ifs.close();
 
-	bubbleSort(&students[0], students.size());
-	bubbleSort(&strings[0], strings.size());
-	bubbleSort(&doubles[0], doubles.size());
+	char version = 'M';
+	std::cout << "Bubblesort (B), Auswahlsortieren (A) oder Mergesort (M)? ";
+	std::cin >> version;
+
+	switch (version) {
+		case 'B':
+			bubbleSort(&students[0], students.size());
+			bubbleSort(&strings[0], strings.size());
+			bubbleSort(&doubles[0], doubles.size());
+			break;
+		case 'A':
+			selectionSort(&students[0], students.size());
+			selectionSort(&strings[0], strings.size());
+			selectionSort(&doubles[0], doubles.size());
+			break;
+		case 'M':
+		default:
+			mergeSort(&students[0], students.size());
+			mergeSort(&strings[0], strings.size());
+			mergeSort(&doubles[0], doubles.size());
+			break;
+	}
 	
 	ausgeben(std::cout, students);
 	ausgeben(std::cout, strings);
 	ausgeben(std::cout, doubles);
+
+	ergebnis(students);
+	ergebnis(strings);
+	ergebnis(doubles);
 }
