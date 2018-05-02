@@ -9,51 +9,51 @@
 #include "student.h"
 #include "sort.h"
 #include <iostream>
+#include <fstream>
 
-//void einlesen(
+using std::vector;
+using std::string;
+
+template<typename T>
+void einlesen(std::ifstream& ifs, vector<T>& v) {
+	while (!ifs.eof()) {
+		T element;
+		ifs >> element;
+		if (!ifs.fail()) v.push_back(element);
+	}
+}
+
+template<typename T>
+void ausgeben(std::ostream& os, const vector<T>& v) {
+	for (int i = 0; i < v.size(); i++) {
+		os << v[i] << "\n";
+	}
+	os << "\n";
+}
 
 int main() {
-	Student emma;
-	emma.Vorname = "Emma";
-	emma.Nachname = "Ahrens";
-	emma.MatNr = 371063;
-	emma.Note = 1.0;
+	vector<Student> students;
+	vector<double> doubles;
+	vector<string> strings;
 
-	Student flo;
-	flo.Vorname = "Florian";
-	flo.Nachname = "Behrens";
-	flo.MatNr = 356348;
-	flo.Note = 1.0;
+	std::ifstream ifs;
+	ifs.open("studenten.txt");
+	einlesen(ifs, students);
+	ifs.close();
 
-	std::cout << flo << emma << (emma < flo) << std::endl << std::endl;
+	ifs.open("strings.txt");
+	einlesen(ifs, strings);
+	ifs.close();
 
-	Student * feld = new Student [2];
-	feld[0] = flo;
-	feld[1] = emma;
+	ifs.open("doubles.txt");
+	einlesen(ifs, doubles);
+	ifs.close();
 
-	size_t laenge = 2;
-
-	mergeSort(feld, laenge);
-
-	for (int i = 0; i < 2; i++) {
-		std::cout << feld[i];
-	}
-
-	delete [] feld;
-
-	std::vector<Student> feld2;
-	feld2.push_back(flo);
-	feld2.push_back(emma);
-
-	mergeSort(&feld2[0], feld2.size());
+	bubbleSort(&students[0], students.size());
+	bubbleSort(&strings[0], strings.size());
+	bubbleSort(&doubles[0], doubles.size());
 	
-	for (int i = 0; i < feld2.size(); i++) {
-		std::cout << feld2[i];
-	}
-	
-	/*
-	for (vector<Student>::iterator it = feld2.begin(); it != feld2.end(); ++it)
-		std::cout << (*it) << std::endl;*/
-	
-	return 0;
+	ausgeben(std::cout, students);
+	ausgeben(std::cout, strings);
+	ausgeben(std::cout, doubles);
 }
