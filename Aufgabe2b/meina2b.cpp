@@ -10,6 +10,8 @@
 #include "sort.h"
 #include <iostream>
 
+//void einlesen(
+
 int main() {
 	Student emma;
 	emma.Vorname = "Emma";
@@ -31,12 +33,27 @@ int main() {
 
 	size_t laenge = 2;
 
-	selectionSort(feld, laenge);
+	mergeSort(feld, laenge);
 
 	for (int i = 0; i < 2; i++) {
 		std::cout << feld[i];
 	}
 
 	delete [] feld;
+
+	std::vector<Student> feld2;
+	feld2.push_back(flo);
+	feld2.push_back(emma);
+
+	mergeSort(&feld2[0], feld2.size());
+	
+	for (int i = 0; i < feld2.size(); i++) {
+		std::cout << feld2[i];
+	}
+	
+	/*
+	for (vector<Student>::iterator it = feld2.begin(); it != feld2.end(); ++it)
+		std::cout << (*it) << std::endl;*/
+	
 	return 0;
 }

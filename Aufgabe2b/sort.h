@@ -16,14 +16,14 @@
 using std::size_t;
 
 template<typename T>
-void tausche(T * &feld, size_t i, size_t j) {
+void tausche(T * feld, size_t i, size_t j) {
 	T tmp = feld[i];
 	feld[i] = feld[j];
 	feld[j] = tmp;
 }
 
 template<typename T>
-void bubbleSort(T * &feld, size_t laenge) {
+void bubbleSort(T * feld, size_t laenge) {
 	for(int i=0; i<laenge; i++) {
 		for(int j=laenge-1; j>i; j--) {
 			if(feld[j]<feld[j-1]) {
@@ -34,7 +34,7 @@ void bubbleSort(T * &feld, size_t laenge) {
 }
 
 template<typename T>
-void selectionSort(T * &feld, size_t laenge) {
+void selectionSort(T * feld, size_t laenge) {
 	for(int i=1; i<laenge; i++) {
 		for(int j=i; j>=1; j--) {		
 			if(feld[j]<feld[j-1]) {
