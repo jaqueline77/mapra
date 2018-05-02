@@ -10,7 +10,7 @@ std::istream& operator>> ( std::istream& s, Student& a)
 // Ausgabeoperator "<<"
 std::ostream& operator<< ( std::ostream& s, const Student& a)
 {
-	s << a.Vorname << " " << a.Nachname << " " << a.MatNr << " " << a.Note << std::endl;
+	s << a.Vorname << " " << a.Nachname << " " << a.MatNr << " " << a.Note << " ";
 	return s;
 }
 

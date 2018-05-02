@@ -1,6 +1,12 @@
-run: compile
-	./prog
-compile: student.o unit.o sort.h
-	g++ -o prog meina2b.cpp student.o unit.o
-student.o:
-	g++ -c student.cpp
+CXXFLAGS = -O0 -g
+
+prog: meina2b.cpp unit.o student.o sort.h
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+student.o: student.cpp student.h
+	$(CXX) $(CXXFLAGS) -c $<
+
+clean:
+	rm -f student.o prog
+
+.PHONY: clean
