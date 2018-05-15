@@ -98,7 +98,6 @@ Vektor& Vektor::operator = (const Vektor& x)
 
 Vektor& Vektor::operator += (const Vektor& x)
 {
-    // ***** Hier fehlt was *****
     if (Vek.size() != x.Laenge())
         VekFehler("Inkompatible Dimensionen fuer 'Vektor = Vektor'!");
     Vektor v;
